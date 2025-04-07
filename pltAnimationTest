@@ -1,0 +1,44 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+import matplotlib.animation as animation
+
+fig = plt.figure()
+ax = fig.add_subplot(projection="3d")
+x_max = 1
+ax.set(xlim=(0,1), ylim=(0,1), zlim=(0,1), xlabel="X", ylabel="Y", zlabel="Z")
+
+# also need a function to animate the plot, parameters
+#   animationFunction
+#   frames
+#   interval between frames (millis)
+# steps:
+#   1. plot a figure and save the Artists (the objects that draw the plot)
+#   2. create a function with frames parameter (calls the set_* methods of the artists)
+#   3. create a FuncAnimation with the artist and function
+#   4. plt.show()
+
+frames = 50
+x_arr = np.linspace(0,x_max,num=frames)
+y_arr = x_arr ** 2 
+z_arr = np.zeros(frames)
+
+line, = ax.plot(x_arr[0], y_arr[0], z_arr[0], color=(0, 0, 1), label="test!!")
+
+def update(frame):
+    frame+=10
+    x = x_arr[:frame]
+    y = y_arr[:frame]
+    z = y_arr[:frame]
+
+    data = np.stack([x,y,z])
+    print(data[:2, :frame])
+
+    line.set_data(data[:2, :frame])
+    line.set_3d_properties(data[2, :frame])
+
+    return line
+
+animation = animation.FuncAnimation(fig, func=update, frames=frames, interval=30)
+
+plt.show()

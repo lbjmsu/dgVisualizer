@@ -12,6 +12,8 @@ import random
 
 # ----- Next goal is to better determine which parameter is analogous to what term in disc golf
 
+# use phi, theta, gamma readings to visualize rotation of disc during flight
+
 fig = plt.figure()
 ax = fig.add_subplot(projection='3d')
 dgammas = np.arange(0,150,15)
